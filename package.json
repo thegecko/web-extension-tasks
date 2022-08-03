@@ -1,0 +1,64 @@
+{
+  "name": "web-extension-tasks",
+  "displayName": "Web Extension Tasks",
+  "description": "VS Code Web Extension demonstrating tasks",
+  "version": "1.0.0",
+  "preview": true,
+  "private": true,
+  "publisher": "thegecko",
+  "author": "Rob Moran <rob@thegecko.org>",
+  "license": "MIT",
+  "main": "dist/desktop/extension.js",
+  "browser": "dist/browser/extension.js",
+  "repository": "https://github.com/thegecko/web-extension-tasks",
+  "qna": false,
+  "engines": {
+    "vscode": "^1.63.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "scripts": {
+    "prepare": "yarn build",
+    "clean": "git clean -f -x ./node_modules ./dist",
+    "build": "webpack --mode production",
+    "watch": "webpack -w",
+    "browser": "vscode-test-web --extensionDevelopmentPath=. test-workspace",
+    "serve": "serve --cors -p 8000"
+  },
+  "devDependencies": {
+    "@types/node": "^14.18.0",
+    "@types/vscode": "^1.63.0",
+    "@vscode/test-web": "^0.0.22",
+    "serve": "^14.0.1",
+    "ts-loader": "^9.2.6",
+    "typescript": "^3.9.6",
+    "webpack": "^5.64.0",
+    "webpack-cli": "^4.9.1"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "web-extension-tasks.runTask",
+        "title": "Run second task"
+      }
+    ],
+    "taskDefinitions": [
+      {
+        "type": "web-extension-tasks.text-task",
+        "required": [
+          "text"
+        ],
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "text to show"
+          }
+        }
+      }
+    ]
+  },
+  "activationEvents": [
+    "*"
+  ]
+}
