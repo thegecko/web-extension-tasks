@@ -1,5 +1,4 @@
 import * as vscode from 'vscode';
-import { TextTaskDefinition } from './text-task-provider';
 
 export class CustomTaskTerminal implements vscode.Pseudoterminal {
 
@@ -8,12 +7,14 @@ export class CustomTaskTerminal implements vscode.Pseudoterminal {
     private closeEmitter = new vscode.EventEmitter<number>();
     public onDidClose?: vscode.Event<number> = this.closeEmitter.event;
 
-    public constructor(protected definition: TextTaskDefinition) {
+    public constructor(protected text: string, protected closeOnFinish = false) {
     }
 
     public async open(_initialDimensions: vscode.TerminalDimensions | undefined): Promise<void> {
-        this.onOutput(this.definition.text);
-        this.closeEmitter.fire(0);
+        this.onOutput(this.text);
+        if (this.closeOnFinish) {
+            this.closeEmitter.fire(0);
+        }
     }
 
     public close(): void {

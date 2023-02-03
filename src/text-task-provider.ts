@@ -27,7 +27,7 @@ export class TextTaskProvider implements vscode.TaskProvider {
                 task.scope ?? vscode.TaskScope.Workspace,
                 definition.text,
                 TextTaskProvider.taskType,
-                new vscode.CustomExecution(async () => new CustomTaskTerminal(definition))
+                new vscode.CustomExecution(async () => new CustomTaskTerminal(definition.text))
             );
         }
 
