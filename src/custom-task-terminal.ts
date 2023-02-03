@@ -18,7 +18,15 @@ export class CustomTaskTerminal implements vscode.Pseudoterminal {
     }
 
     public close(): void {
-        // Stop and tidy up
+        vscode.window.showInformationMessage('close');
+    }
+
+    public handleInput(data: string): void {
+        vscode.window.showInformationMessage(`input: ${data}`);
+    }
+
+    public setDimensions(_dimensions: vscode.TerminalDimensions): void {
+        vscode.window.showInformationMessage('resize');
     }
 
     private onOutput(message: string) {
